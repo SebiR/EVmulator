@@ -7,18 +7,22 @@
 #define LED_RD 1
 #define CHARGE 4
 
-// WDT Interrupt Need some code for coming out of sleep.
-// but is does not need to do anything! (just exist).
+int pwm_good_cntr = 0;
+int pwm_bad_cntr = 0;
+uint8_t pwm_status = 0;
+
+// Blank WDT interrupt
 ISR(WDT_vect) {
 }
 
-// Enters the arduino into sleep mode.
+// Enter Sleep Mode
 void enterSleep(void) {
-  set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+  //set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+  set_sleep_mode(SLEEP_MODE_IDLE);
   sleep_enable();
   sleep_mode();  // Start sleep mode
 
-  // Hang here until WDT timeout
+  // Nothing happens until WDT timeout
 
   sleep_disable();
   power_all_enable();
@@ -37,17 +41,21 @@ void setupWDT() {
   // WDTCR  = (0<<WDP3) | (1<<WDP2) | (0<<WDP0) | (1<<WDP0);
 
   // WD each ~34ms
-  WDTCR = (0 << WDP3) | (0 << WDP2) | (0 << WDP1) | (0 << WDP1);
+  WDTCR = (0 << WDP2) | (0 << WDP1) | (1 << WDP0);
 
   WDTCR |= _BV(WDIE);  // Enable the WDT interrupt.
 }
 
 void setupT0() {
 
-TCCR0A=0x00;             //Normal mode
+  TCCR0A = 0x00;  //Normal mode
+
   // Ext. T0 as input. Rising edge
+  TCCR0B = 0;
   TCCR0B = (1 << CS02) | (1 << CS01) | (1 << CS00);
 }
+
+
 
 void setup() {
 
@@ -55,34 +63,50 @@ void setup() {
   pinMode(LED_RD, OUTPUT);
   pinMode(CHARGE, OUTPUT);
 
-  ADCSRA &= ~(1 << ADEN);  // Disable ADC
+  digitalWrite(CHARGE, LOW);
 
+  ADCSRA &= ~(1 << ADEN);  // Disable ADC
 
   setupT0();
   setupWDT();
-
-}
-
-void _loop() {
-  // Re-enter sleep mode.
-  enterSleep();
 }
 
 void loop() {
 
-  // Each 34ms -> 1kHz means 34 counts
-  if ((TCNT0 >= 10) && (TCNT0 <= 100)) {
-
-    digitalWrite(LED_GN, 1);
-    delay(2);
-    digitalWrite(LED_GN, 0);
+  // Each 36ms -> 1kHz means 36 counts
+  // 30 = 900Hz, 40 =1.2kHz
+  if ((TCNT0 >= 30) && (TCNT0 <= 40)) {
+    pwm_bad_cntr = 0;
+    pwm_good_cntr++;
   } else {
-    digitalWrite(LED_RD, 1);
-    delay(2);
-    digitalWrite(LED_RD, 0);
+    pwm_good_cntr = 0;
+    pwm_bad_cntr++;
+  }
+  TCNT0 = 0;
+
+  //approx 5 seconds of good pwm and low flag
+  if (pwm_good_cntr > 5*30 && pwm_status == 0) {
+    pwm_status = 1;
+    pwm_good_cntr = 0;
+  } else if (pwm_bad_cntr > 5*30 && pwm_status == 1) {
+    pwm_status = 0;
+    pwm_bad_cntr = 0;
   }
 
-  TCNT0 = 0;
+  if (pwm_status == 1) {
+    digitalWrite(LED_GN, 1);
+    delay(1);
+    digitalWrite(LED_GN, 0);
+
+    digitalWrite(CHARGE, HIGH);
+
+  } else {
+    digitalWrite(LED_RD, 1);
+    delay(1);
+    digitalWrite(LED_RD, 0);
+
+    digitalWrite(CHARGE, LOW);
+  }
 
   enterSleep();
 }
