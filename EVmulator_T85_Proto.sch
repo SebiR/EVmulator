@@ -11570,6 +11570,8 @@ Switches electronic signals</description>
 <part name="GND11" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="R10" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="R0603" package3d_urn="urn:adsk.eagle:package:23555/3" value="1k"/>
 <part name="Q2" library="SparkFun-DiscreteSemi" library_urn="urn:adsk.eagle:library:514" deviceset="MOSFET-NCH" device="-AO3404A" package3d_urn="urn:adsk.eagle:package:38446/1" value="DMN3404L-7"/>
+<part name="J2" library="Eigene-Rietig" library_urn="urn:adsk.eagle:library:40964436" deviceset="TAG-CONNECT_TC2030" device="-MCP-NL" package3d_urn="urn:adsk.eagle:package:41146494/1"/>
+<part name="GND12" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -11579,6 +11581,9 @@ Switches electronic signals</description>
 220R = 32A</text>
 <text x="246.38" y="50.8" size="1.27" layer="91">ISP</text>
 <text x="220.98" y="55.88" size="1.778" layer="91">6pin TagConnect
+Pinout 6pin ISP compatible</text>
+<text x="195.58" y="50.8" size="1.27" layer="91">ISP</text>
+<text x="170.18" y="55.88" size="1.778" layer="91">6pin TagConnect
 Pinout 6pin ISP compatible</text>
 </plain>
 <instances>
@@ -11713,6 +11718,10 @@ Pinout 6pin ISP compatible</text>
 <attribute name="NAME" x="198.12" y="129.54" size="1.778" layer="96" rot="R180"/>
 <attribute name="VALUE" x="198.12" y="106.68" size="1.778" layer="96" rot="R90"/>
 </instance>
+<instance part="J2" gate="G$1" x="190.5" y="53.34" smashed="yes"/>
+<instance part="GND12" gate="1" x="185.42" y="33.02" smashed="yes">
+<attribute name="VALUE" x="182.88" y="30.48" size="1.778" layer="96"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -11786,6 +11795,12 @@ Pinout 6pin ISP compatible</text>
 <pinref part="GND11" gate="1" pin="GND"/>
 <pinref part="R9" gate="G$1" pin="1"/>
 <wire x1="177.8" y1="86.36" x2="177.8" y2="88.9" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="J2" gate="G$1" pin="6"/>
+<pinref part="GND12" gate="1" pin="GND"/>
+<wire x1="187.96" y1="38.1" x2="185.42" y2="38.1" width="0.1524" layer="91"/>
+<wire x1="185.42" y1="38.1" x2="185.42" y2="35.56" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$1" class="0">
@@ -11975,6 +11990,41 @@ Pinout 6pin ISP compatible</text>
 <wire x1="193.04" y1="121.92" x2="190.5" y2="121.92" width="0.1524" layer="91"/>
 <pinref part="R10" gate="G$1" pin="1"/>
 <pinref part="Q2" gate="NMOS" pin="G"/>
+</segment>
+</net>
+<net name="MOSI" class="0">
+<segment>
+<wire x1="182.88" y1="43.18" x2="187.96" y2="43.18" width="0.1524" layer="91"/>
+<pinref part="J2" gate="G$1" pin="4"/>
+<label x="182.88" y="43.18" size="1.27" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="!RESET" class="0">
+<segment>
+<wire x1="182.88" y1="40.64" x2="187.96" y2="40.64" width="0.1524" layer="91"/>
+<pinref part="J2" gate="G$1" pin="5"/>
+<label x="182.88" y="40.64" size="1.27" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SCK" class="0">
+<segment>
+<wire x1="182.88" y1="45.72" x2="187.96" y2="45.72" width="0.1524" layer="91"/>
+<pinref part="J2" gate="G$1" pin="3"/>
+<label x="182.88" y="45.72" size="1.27" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="VCC" class="0">
+<segment>
+<wire x1="182.88" y1="48.26" x2="187.96" y2="48.26" width="0.1524" layer="91"/>
+<pinref part="J2" gate="G$1" pin="2"/>
+<label x="182.88" y="48.26" size="1.27" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="MISO" class="0">
+<segment>
+<wire x1="182.88" y1="50.8" x2="187.96" y2="50.8" width="0.1524" layer="91"/>
+<pinref part="J2" gate="G$1" pin="1"/>
+<label x="182.88" y="50.8" size="1.27" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 </nets>

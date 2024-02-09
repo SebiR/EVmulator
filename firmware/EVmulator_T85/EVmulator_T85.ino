@@ -29,6 +29,7 @@ void enterSleep(void) {
 }
 
 // Setup the Watch Dog Timer (WDT)
+// http://modelleisenbahn-steuern.de/controller/atmega8/6-5-wdtcr-register-atmega8.htm
 void setupWDT() {
 
   MCUSR &= ~(1 << WDRF);  // Clear the WDRF (Reset Flag).
@@ -41,7 +42,7 @@ void setupWDT() {
   // WDTCR  = (0<<WDP3) | (1<<WDP2) | (0<<WDP0) | (1<<WDP0);
 
   // WD each ~34ms
-  WDTCR = (0 << WDP2) | (0 << WDP1) | (1 << WDP0);
+  WDTCR = (0 << WDP2) | (1 << WDP1) | (0 << WDP0);
 
   WDTCR |= _BV(WDIE);  // Enable the WDT interrupt.
 }
@@ -63,6 +64,9 @@ void setup() {
   pinMode(LED_RD, OUTPUT);
   pinMode(CHARGE, OUTPUT);
 
+  pinMode(2, INPUT_PULLUP);
+  pinMode(3, INPUT_PULLUP);
+
   digitalWrite(CHARGE, LOW);
 
   ADCSRA &= ~(1 << ADEN);  // Disable ADC
@@ -75,7 +79,7 @@ void loop() {
 
   // Each 36ms -> 1kHz means 36 counts
   // 30 = 900Hz, 40 =1.2kHz
-  if ((TCNT0 >= 30) && (TCNT0 <= 40)) {
+  if ((TCNT0 >= 60) && (TCNT0 <= 80)) {
     pwm_bad_cntr = 0;
     pwm_good_cntr++;
   } else {
@@ -98,14 +102,14 @@ void loop() {
     delay(1);
     digitalWrite(LED_GN, 0);
 
-    digitalWrite(CHARGE, HIGH);
+    //digitalWrite(CHARGE, HIGH);
 
   } else {
     digitalWrite(LED_RD, 1);
     delay(1);
     digitalWrite(LED_RD, 0);
 
-    digitalWrite(CHARGE, LOW);
+    //digitalWrite(CHARGE, LOW);
   }
 
   enterSleep();
