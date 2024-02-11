@@ -1,7 +1,7 @@
 # EVmulator
 A small PCB to go into IEC 62196 Typ 2 EV charging plugs to emulate a car to use a charging station as a normal outlet.
 
-![EVmulator](./doc/evmulator_proto.jpg)
+<img src="./doc/evmulator_proto.jpg" width="600">
 
 It's currently running with an ATTiny85, although an ATTiny25 will suffice. In the future it might be done with an ATTiny10.
 
