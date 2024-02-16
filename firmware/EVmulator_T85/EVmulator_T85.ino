@@ -50,8 +50,8 @@ void setupWDT() {
   // change WDE or the watchdog pre-scalers.
   WDTCR |= (1 << WDCE) | (1 << WDE);
 
-  // WD triggers every ~36...37ms
-  WDTCR = (0 << WDP3) | (0 << WDP2) | (0 << WDP1) | (1 << WDP0);
+  // WD triggers every ~74ms
+  WDTCR = (0 << WDP3) | (0 << WDP2) | (1 << WDP1) | (0 << WDP0);
 
   WDTCR |= _BV(WDIE);  // Enable the WDT interrupt.
 }
@@ -88,16 +88,16 @@ void setup() {
 }
 
 void loop() {
-  /*if ((TCNT0 >= 25) && (TCNT0 <= 45)) {
+  /*if ((TCNT0 >= 60) && (TCNT0 <= 90)) {
     digitalWrite(LED_RD, 1);
   } else {
     digitalWrite(LED_RD, 0);
-  }*/
-
-
-  // Each 36ms -> 1kHz means 36 counts
+  }
+  TCNT0 = 0;*/
+  
+  // Each 74ms -> 1kHz means 74 counts
   // 30 = 900Hz, 40 =1.2kHz
-  if ((TCNT0 >= 25) && (TCNT0 <= 45)) {
+  if ((TCNT0 >= 60) && (TCNT0 <= 90)) {
     pwm_bad_cntr = 0;
     pwm_good_cntr++;
   } else {
@@ -106,13 +106,12 @@ void loop() {
   }
   TCNT0 = 0;
 
-
   //  approx 5 seconds of good pwm and low flag
-  //  36ms period time means ~30Hz
-  if (pwm_good_cntr > 5 * 30 && pwm_status == 0) {
+  //  74ms period time means ~15Hz
+  if (pwm_good_cntr > 5 * 15 && pwm_status == 0) {
     pwm_status = 1;
     pwm_good_cntr = 0;
-  } else if (pwm_bad_cntr > 5 * 30 && pwm_status == 1) {
+  } else if (pwm_bad_cntr > 5 * 15 && pwm_status == 1) {
     pwm_status = 0;
     pwm_bad_cntr = 0;
   }
@@ -134,5 +133,6 @@ void loop() {
     digitalWrite(CHARGE, LOW);
   }
 
+  //  Everything done, go to sleep
   enterSleep();
 }
