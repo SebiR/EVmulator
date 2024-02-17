@@ -17,6 +17,8 @@ WD. Osc. 128 kHz
 #define LED_RD 1  // PB1 - Red indicator LED
 #define CHARGE 4  // PB4 - MOSFET to activate second resistor
 
+#define LED_ON_TIME 5 // in ms
+
 int pwm_good_cntr = 0;
 int pwm_bad_cntr = 0;
 uint8_t pwm_status = 0;
@@ -74,6 +76,7 @@ void setup() {
   pinMode(LED_RD, OUTPUT);
   pinMode(CHARGE, OUTPUT);
 
+  // Unused pins as pulled up inputs
   pinMode(2, INPUT_PULLUP);
   pinMode(3, INPUT_PULLUP);
 
@@ -88,13 +91,7 @@ void setup() {
 }
 
 void loop() {
-  /*if ((TCNT0 >= 60) && (TCNT0 <= 90)) {
-    digitalWrite(LED_RD, 1);
-  } else {
-    digitalWrite(LED_RD, 0);
-  }
-  TCNT0 = 0;*/
-  
+
   // Each 74ms -> 1kHz means 74 counts
   // 30 = 900Hz, 40 =1.2kHz
   if ((TCNT0 >= 60) && (TCNT0 <= 90)) {
@@ -119,17 +116,19 @@ void loop() {
   //  Pilot PWM signal is good, switch on charging indication resistor
   if (pwm_status == 1) {
     digitalWrite(LED_GN, HIGH);
-    _delay_ms(2);
+    _delay_ms(LED_ON_TIME);
     digitalWrite(LED_GN, LOW);
 
+    // Tell the EVSE we're changing from connected to charging
     digitalWrite(CHARGE, HIGH);
 
     // Pilot PWM signal lost, switch off charging resistor
   } else {
     digitalWrite(LED_RD, HIGH);
-    _delay_ms(2);
+    _delay_ms(LED_ON_TIME);
     digitalWrite(LED_RD, LOW);
 
+    // Signal the EVSE we're not charging but in connected mode
     digitalWrite(CHARGE, LOW);
   }
 

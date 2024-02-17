@@ -28,4 +28,16 @@ https://www.goingelectric.de/wiki/Typ2-Signalisierung-und-Steckercodierung/
 ## Usage
 
 ## Firmware
-The firmware is still under development and not really usable yet.
+### Just flash the HEX
+Flash the provided hex file with avrdude or AVRDUDESS:
+<img src="./doc/avr_dudess_settings.png" width="600">
+
+When burning the fuses, make sure to set the ISP clock speed very low, as the ATtiny will run with 128kHz clock. 10kHz works fine.
+Lo: 0xC4
+Hi: 0xD7
+
+### Compiling with Arduino
+The project utilises the ATTinyCore from Spence Konde: https://github.com/SpenceKonde/ATTinyCore
+
+As the Arduino IDE only changes the CKSEL fuse bits when burning the bootloader, you still have to set the fuses with avrdude!
+Burning the bootloader to set the fuses before flasdhing the firmware won't work, as the default ISP clock speed will be too high for the 128kHz clock of the controller.
