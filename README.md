@@ -1,7 +1,7 @@
 # EVmulator
 A small PCB to go into IEC 62196 Typ 2 EV charging plugs to emulate a car to use a charging station as a normal outlet.
 
-<img src="./doc/evmulator_in_plug.jpg" width="600">
+<img src="./doc/evmulator_back.jpg" width="600">
 
 It's currently running with an ATTiny85, although an ATTiny25 will suffice. In the future it might be done with an ATTiny10.
 
@@ -26,7 +26,11 @@ After connecting, the EVmulator will detect the 1kHz PWM signal on the CP line a
 More information on Type 2 Signaling can be found here (in German):
 https://www.goingelectric.de/wiki/Typ2-Signalisierung-und-Steckercodierung/
 
+To end the charging process, a magnet is placed on the plug, opening a reed switch and signaling the end of charge to the charger.
+
 ## Usage
+
+<img src="./doc/evmulator_in_plug.jpg" width="600">
 
 ## Firmware
 
@@ -85,3 +89,9 @@ All blinking is implemented by flashing the LED for 1 ms during each WDT inter
 - WDT interval is adjusted dynamically based on state.
 - Sleep modes and minimal active time are used to reduce power consumption.
 - Timer0 uses an asynchronous external clock, allowing operation even in low-power modes.
+
+## Other
+
+During development, I also created the <a href="https://github.com/SebiR/EVSE_Emulator_Shield">EVSE Emulator Shield</a> to test the EVmulator
+
+<img src="./doc/evmulator_with_evse.jpg" width="600">
