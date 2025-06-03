@@ -1,7 +1,7 @@
 # EVmulator
 A small PCB to go into IEC 62196 Typ 2 EV charging plugs to emulate a car to use a charging station as a normal outlet.
 
-<img src="./doc/evmulator_proto.jpg" width="600">
+<img src="./doc/evmulator_in_plug.jpg" width="600">
 
 It's currently running with an ATTiny85, although an ATTiny25 will suffice. In the future it might be done with an ATTiny10.
 
@@ -25,19 +25,63 @@ After connecting, the EVmulator will detect the 1kHz PWM signal on the CP line a
 
 More information on Type 2 Signaling can be found here (in German):
 https://www.goingelectric.de/wiki/Typ2-Signalisierung-und-Steckercodierung/
+
 ## Usage
 
 ## Firmware
-### Just flash the HEX
-Flash the provided hex file with avrdude or AVRDUDESS:
-<img src="./doc/avr_dudess_settings.png" width="600">
 
-When burning the fuses, make sure to set the ISP clock speed very low, as the ATtiny will run with 128kHz clock. 10kHz works fine.
-Lo: 0xC4
-Hi: 0xD7
+This firmware for the Microchip ATTiny10 microcontroller implements a simple low-power state machine that monitors an external square wave signal and controls a charging MOSFET and an indicator LED accordingly.
 
-### Compiling with Arduino
-The project utilises the ATTinyCore from Spence Konde: https://github.com/SpenceKonde/ATTinyCore
+### Hardware Configuration
 
-As the Arduino IDE only changes the CKSEL fuse bits when burning the bootloader, you still have to set the fuses with avrdude!
-Burning the bootloader to set the fuses before flasdhing the firmware won't work, as the default ISP clock speed will be too high for the 128kHz clock of the controller.
+| Pin  | Function           | Description                                  |
+|------|--------------------|----------------------------------------------|
+| PB0  | LED Output         | Blinks to indicate system state              |
+| PB1  | CHARGE_ON (Output) | Controls a MOSFET for to signal Charging state      |
+| PB2  | Frequency Input     | Connected to external ~1kHz square wave, also Timer0 clock source |
+
+### System Clock and Power Settings
+
+- The system clock is derived from the 128 kHz Watchdog oscillator.
+- A clock prescaler divides this to 32 kHz system frequency.
+- The ADC and analog comparator are disabled to save power.
+- The microcontroller primarily stays in `SLEEP_MODE_IDLE`, waking periodically via the Watchdog Timer interrupt.
+
+### State Machine
+
+The firmware operates in three states:
+
+1. **IDLE**  
+   - Wakes every ~32 ms via WDT.
+   - If no external clock signal is detected (TCNT0 == 0), stays in IDLE.
+   - If a clock signal is consistently present for 10 cycles, transitions to MEASURE.
+
+2. **MEASURE**  
+   - Wakes every ~125 ms.
+   - Measures frequency using Timer0 (externally clocked).
+   - If the frequency is above 500 Hz for 10 cycles, transitions to CHARGE.
+   - Remains in MEASURE as long as signal is present and below 500 Hz.
+
+3. **CHARGE**  
+   - Wakes approximately every second.
+   - Enables the CHARGE_ON MOSFET (PB1 high).
+   - If frequency drops below 500 Hz for 5 consecutive cycles, reverts to MEASURE.
+
+### LED Signal Behavior
+
+The LED (on PB0) provides visual feedback for debugging and operational awareness:
+
+| LED Behavior        | State(s)      | Meaning                                   |
+|---------------------|---------------|-------------------------------------------|
+| Quick blink (1 ms flash every ~32 ms) | IDLE          | Signal inactive or low frequency detected |
+| Slow blink (1 ms flash every ~125 ms) | MEASURE       | Signal detected, measuring frequency       |
+| Very slow blink (1 ms flash every ~1 s) | CHARGE        | Charging enabled, monitoring signal        |
+
+All blinking is implemented by flashing the LED for 1 ms during each WDT interrupt.
+
+### Power Optimization
+
+- All unnecessary peripherals (ADC, comparator) are disabled.
+- WDT interval is adjusted dynamically based on state.
+- Sleep modes and minimal active time are used to reduce power consumption.
+- Timer0 uses an asynchronous external clock, allowing operation even in low-power modes.
