@@ -47,17 +47,17 @@ Connect the three terminals of the EVmulator with the according pins of your IEC
 
 ### Solder Jumpers
 
-There are two SMT solder jumpers located on the component side of the PCB:\\
-**SJ1** bypasses the internal reed switch in case you want to use a key switch or a push button to stop the charging process. Use NC (normally closed "openener" switches). \\
-**SJ2 LED** has to be closed after flashing the microcontroller to activate the status LED. The TPI programming interface is a bit finicky when it comes to other components on the programming lines.
+There are two SMT solder jumpers located on the component side of the PCB:<br>
+**SJ1** bypasses the internal reed switch in case you want to use a key switch or a push button to stop the charging process. Use NC (normally closed "openener" switches).<br>
+**SJ2 LED** has to be closed after flashing the microcontroller to activate the status LED. The TPI programming interface is a bit finicky when it comes to other components on the programming lines.<br>
 
 
-And there's one solder jumper on the side with the reed switch:\\
+And there's one solder jumper on the side with the reed switch:<br>
 **SJ3 13/32A** let's you select between a max. current of 13A or 32A depending on your application. Always make sure to use rated cables and connectors!
 
 ### In the field
 Just connect you Type 2 plug to the wallbox or charging station and authorize the charging process as you would normally.
-The EVmulator will signal the charger that a car has been connected and that it is charging.\\
+The EVmulator will signal the charger that a car has been connected and that it is charging.<br>
 
 To stop the charging process, place a magnet over the reed switch and unplug the plug.
 
