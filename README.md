@@ -55,6 +55,16 @@ There are two SMT solder jumpers located on the component side of the PCB:<br>
 And there's one solder jumper on the side with the reed switch:<br>
 **SJ3 13/32A** let's you select between a max. current of 13A or 32A depending on your application. Always make sure to use rated cables and connectors!
 
+### Inside the plug
+
+Drill a 3mm hole in the plug and put the LED through it. Fix the board with a bit of silicone or hot glue and you're done!
+
+<img src="./doc/evmulator_in_plug2.jpg" width="600">
+
+If you want, you can add a label:
+
+<img src="./doc/evmulator_label.jpg" width="600">
+
 ### In the field
 Just connect you Type 2 plug to the wallbox or charging station and authorize the charging process as you would normally.
 The EVmulator will signal the charger that a car has been connected and that it is charging.<br>
@@ -66,6 +76,8 @@ To stop the charging process, place a magnet over the reed switch and unplug the
 | Quick blink (1 ms flash every ~32 ms) | Idling, waiting for CP signal          |
 | Slow blink (1 ms flash every ~125 ms) | Checking if the CP signal is valid       |
 | Very slow blink (1 ms flash every ~1 s) | Charging        |
+
+<img src="./doc/evmulator_finished.jpg" width="600">
 
 ## Firmware
 
