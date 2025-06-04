@@ -3,7 +3,7 @@
 <eagle version="9.6.2">
 <drawing>
 <settings>
-<setting alwaysvectorfont="no"/>
+<setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
 <grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
@@ -4963,8 +4963,10 @@ Marquardt, Siemens, C&amp;K, ITT, and others&lt;p&gt;
 <plain>
 <wire x1="45.72" y1="93.98" x2="109.22" y2="93.98" width="0.1524" layer="97" style="longdash"/>
 <wire x1="109.22" y1="93.98" x2="109.22" y2="35.56" width="0.1524" layer="97" style="longdash"/>
-<wire x1="109.22" y1="35.56" x2="45.72" y2="35.56" width="0.1524" layer="97" style="longdash"/>
-<wire x1="45.72" y1="35.56" x2="45.72" y2="93.98" width="0.1524" layer="97" style="longdash"/>
+<wire x1="109.22" y1="35.56" x2="66.04" y2="35.56" width="0.1524" layer="97" style="longdash"/>
+<wire x1="66.04" y1="35.56" x2="66.04" y2="66.04" width="0.1524" layer="97" style="longdash"/>
+<wire x1="66.04" y1="66.04" x2="45.72" y2="66.04" width="0.1524" layer="97" style="longdash"/>
+<wire x1="45.72" y1="66.04" x2="45.72" y2="93.98" width="0.1524" layer="97" style="longdash"/>
 <wire x1="33.02" y1="93.98" x2="33.02" y2="35.56" width="0.1524" layer="97" style="longdash"/>
 <wire x1="33.02" y1="35.56" x2="-15.24" y2="35.56" width="0.1524" layer="97" style="longdash"/>
 <wire x1="-15.24" y1="35.56" x2="-15.24" y2="93.98" width="0.1524" layer="97" style="longdash"/>
@@ -4975,11 +4977,11 @@ Marquardt, Siemens, C&amp;K, ITT, and others&lt;p&gt;
 <wire x1="-2.54" y1="76.2" x2="-2.54" y2="73.66" width="0.254" layer="94" style="longdash"/>
 <wire x1="-2.54" y1="60.96" x2="-2.54" y2="63.5" width="0.254" layer="94" style="longdash"/>
 <text x="12.7" y="58.42" size="2.54" layer="94" align="center">N</text>
-<text x="63.5" y="58.42" size="2.54" layer="94" align="center">N</text>
+<text x="60.96" y="58.42" size="2.54" layer="94" align="center">N</text>
 <text x="12.7" y="53.34" size="2.54" layer="94" align="center">L1</text>
-<text x="63.5" y="53.34" size="2.54" layer="94" align="center">L1</text>
+<text x="60.96" y="53.34" size="2.54" layer="94" align="center">L1</text>
 <text x="12.7" y="48.26" size="2.54" layer="94" align="center">PE</text>
-<text x="63.5" y="48.26" size="2.54" layer="94" align="center">PE</text>
+<text x="60.96" y="48.26" size="2.54" layer="94" align="center">PE</text>
 <text x="27.94" y="78.74" size="2.54" layer="94" align="center">CP</text>
 <text x="50.8" y="78.74" size="2.54" layer="94" align="center">CP</text>
 <wire x1="-5.08" y1="66.04" x2="-5.08" y2="71.12" width="0.1524" layer="94"/>
@@ -5010,8 +5012,8 @@ Marquardt, Siemens, C&amp;K, ITT, and others&lt;p&gt;
 <instance part="PE1" gate="M" x="81.28" y="40.64" smashed="yes" rot="MR0">
 <attribute name="VALUE" x="83.82" y="38.1" size="1.778" layer="96" rot="MR90"/>
 </instance>
-<instance part="PE2" gate="M" x="53.34" y="40.64" smashed="yes" rot="MR0">
-<attribute name="VALUE" x="55.88" y="38.1" size="1.778" layer="96" rot="MR90"/>
+<instance part="PE2" gate="M" x="50.8" y="40.64" smashed="yes" rot="MR0">
+<attribute name="VALUE" x="53.34" y="38.1" size="1.778" layer="96" rot="MR90"/>
 </instance>
 <instance part="PE3" gate="M" x="93.98" y="40.64" smashed="yes" rot="MR0">
 <attribute name="VALUE" x="96.52" y="38.1" size="1.778" layer="96" rot="MR90"/>
@@ -5045,14 +5047,14 @@ Marquardt, Siemens, C&amp;K, ITT, and others&lt;p&gt;
 <instance part="PAD4" gate="P" x="17.78" y="53.34" smashed="yes">
 <attribute name="VALUE" x="16.637" y="50.038" size="1.778" layer="96"/>
 </instance>
-<instance part="PAD5" gate="P" x="58.42" y="58.42" smashed="yes" rot="R180">
-<attribute name="VALUE" x="59.563" y="61.722" size="1.778" layer="96" rot="R180"/>
+<instance part="PAD5" gate="P" x="55.88" y="58.42" smashed="yes" rot="R180">
+<attribute name="VALUE" x="57.023" y="61.722" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="PAD6" gate="P" x="58.42" y="53.34" smashed="yes" rot="R180">
-<attribute name="VALUE" x="59.563" y="56.642" size="1.778" layer="96" rot="R180"/>
+<instance part="PAD6" gate="P" x="55.88" y="53.34" smashed="yes" rot="R180">
+<attribute name="VALUE" x="57.023" y="56.642" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="PAD7" gate="P" x="58.42" y="48.26" smashed="yes" rot="R180">
-<attribute name="VALUE" x="59.563" y="51.562" size="1.778" layer="96" rot="R180"/>
+<instance part="PAD7" gate="P" x="55.88" y="48.26" smashed="yes" rot="R180">
+<attribute name="VALUE" x="57.023" y="51.562" size="1.778" layer="96" rot="R180"/>
 </instance>
 <instance part="PAD8" gate="P" x="17.78" y="48.26" smashed="yes">
 <attribute name="VALUE" x="16.637" y="44.958" size="1.778" layer="96"/>
@@ -5110,16 +5112,16 @@ Marquardt, Siemens, C&amp;K, ITT, and others&lt;p&gt;
 </segment>
 <segment>
 <pinref part="PE2" gate="M" pin="PE"/>
-<wire x1="53.34" y1="43.18" x2="53.34" y2="48.26" width="0.1524" layer="91"/>
-<wire x1="53.34" y1="48.26" x2="25.4" y2="48.26" width="0.1524" layer="91"/>
+<wire x1="50.8" y1="43.18" x2="50.8" y2="48.26" width="0.1524" layer="91"/>
+<wire x1="50.8" y1="48.26" x2="25.4" y2="48.26" width="0.1524" layer="91"/>
 <wire x1="25.4" y1="48.26" x2="25.4" y2="43.18" width="0.1524" layer="91"/>
 <pinref part="PE4" gate="M" pin="PE"/>
 <pinref part="PAD8" gate="P" pin="P"/>
 <wire x1="20.32" y1="48.26" x2="25.4" y2="48.26" width="0.1524" layer="91"/>
 <junction x="25.4" y="48.26"/>
 <pinref part="PAD7" gate="P" pin="P"/>
-<wire x1="55.88" y1="48.26" x2="53.34" y2="48.26" width="0.1524" layer="91"/>
-<junction x="53.34" y="48.26"/>
+<wire x1="53.34" y1="48.26" x2="50.8" y2="48.26" width="0.1524" layer="91"/>
+<junction x="50.8" y="48.26"/>
 </segment>
 <segment>
 <wire x1="-2.54" y1="43.18" x2="-2.54" y2="60.96" width="0.1524" layer="91"/>
@@ -5155,14 +5157,14 @@ Marquardt, Siemens, C&amp;K, ITT, and others&lt;p&gt;
 </net>
 <net name="N$6" class="0">
 <segment>
-<wire x1="20.32" y1="53.34" x2="55.88" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="20.32" y1="53.34" x2="53.34" y2="53.34" width="0.1524" layer="91"/>
 <pinref part="PAD4" gate="P" pin="P"/>
 <pinref part="PAD6" gate="P" pin="P"/>
 </segment>
 </net>
 <net name="N$7" class="0">
 <segment>
-<wire x1="20.32" y1="58.42" x2="55.88" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="20.32" y1="58.42" x2="53.34" y2="58.42" width="0.1524" layer="91"/>
 <pinref part="PAD3" gate="P" pin="P"/>
 <pinref part="PAD5" gate="P" pin="P"/>
 </segment>
