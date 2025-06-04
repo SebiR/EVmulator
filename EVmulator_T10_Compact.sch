@@ -14655,6 +14655,9 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <text x="132.08" y="50.8" size="1.778" layer="91">6pin TagConnect
 Pinout 6pin ISP compatible</text>
 <text x="177.8" y="96.52" size="1.778" layer="91" rot="R180">LED: Reichelt 3034G3C-CSE-B</text>
+<text x="185.42" y="104.14" size="1.27" layer="91">Close after programming
+(TPI does not like the LED)</text>
+<text x="91.44" y="160.02" size="1.27" layer="91">Bypass reed switch for external switch</text>
 </plain>
 <instances>
 <instance part="FRAME1" gate="G$1" x="0" y="0" smashed="yes">
